@@ -94,5 +94,21 @@ figure:empty {
             });
         });
     });
+
+    var token = localStorage.getItem('jwtToken');
+
+    $.ajax({
+        url: 'http://localhost:8019/admin/api/home',
+        type: 'GET', // Or any other HTTP method you are using
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+        success: function(response) {
+            return response.data
+        },
+        error: function(error) {
+            // Handle any errors
+        }
+    });
 </script>
 </body></html>
