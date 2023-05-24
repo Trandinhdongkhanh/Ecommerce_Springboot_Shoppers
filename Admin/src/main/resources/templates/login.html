@@ -1,0 +1,98 @@
+<html lang="en" native-dark-active=""><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style">:root, ::after, ::before, ::backdrop {
+    --native-dark-accent-color: #a9a9a9;
+    --native-dark-bg-color: #292929;
+    --native-dark-bg-image-color: rgba(0, 0, 0, 0.10);
+    --native-dark-bg-image-filter: brightness(50%) contrast(200%);
+    --native-dark-border-color: #555555;
+    --native-dark-box-shadow: 0 0 0 1px rgb(255 255 255 / 10%);
+    --native-dark-cite-color: #92de92;
+    --native-dark-fill-color: #7d7d7d;
+    --native-dark-font-color: #dcdcdc;
+    --native-dark-link-color: #8db2e5;
+    --native-dark-opacity: 0.85;
+    --native-dark-text-shadow: none;
+    --native-dark-transparent-color: transparent;
+    --native-dark-visited-link-color: #c76ed7
+}
+
+:root {
+    color-scheme: dark;
+    accent-color: var(--native-dark-accent-color);
+}
+
+html a:visited,
+html a:visited > * {
+    color: var(--native-dark-visited-link-color) !important;
+}
+
+a[ping]:link,
+a[ping]:link > *,
+:link:not(cite) {
+    color: var(--native-dark-link-color) !important;
+}
+
+html cite,
+html cite a:link,
+html cite a:visited {
+    color: var(--native-dark-cite-color) !important;
+}
+
+img,
+image,
+figure:empty {
+    opacity: var(--native-dark-opacity) !important;
+}
+</style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Please sign in</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous" class="native-dark-class-original">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous" class="native-dark-class-original">
+</head>
+<body>
+<div class="container">
+    <form class="form-signin" method="post" action="/admin/api/login">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <p>
+            <label for="username" class="sr-only">Username</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required="" autofocus="">
+        </p>
+        <p>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
+        </p>
+        <p><input type="checkbox" name="remember-me"> Remember me on this computer.</p>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#form-signin').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:8019/admin/api/login',
+                data: {
+                    username: $('#username').val(),
+                    password: $('#password').val()
+                },
+                success: function(response) {
+                    // Save the JWT token in local storage or cookies
+                    localStorage.setItem('jwtToken', response.token);
+                    // Redirect to the home page
+                    window.location.href = '/admin/api/home';
+                },
+                error: function(xhr) {
+                    // Handle login error
+                    alert('Login failed. Please try again.');
+                }
+            });
+        });
+    });
+</script>
+</body></html>
