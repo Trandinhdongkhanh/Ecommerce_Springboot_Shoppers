@@ -7,5 +7,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class AuthRes {
     private String token;
-    private final String tokenType = "Bearer";
+    private final String type = "Bearer";
 }

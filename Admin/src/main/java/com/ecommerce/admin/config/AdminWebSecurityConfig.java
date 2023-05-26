@@ -31,10 +31,13 @@ public class AdminWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AdminDetailsService adminDetailsService;
-    @Autowired
-    private JwtAuthFilter jwtAuthFilter;
-    @Autowired
-    private JwtAuthEntryPoint jwtAuthEntryPoint;
+
+    //Uncomment this if you want to use JWT authentication
+
+//    @Autowired
+//    private JwtAuthFilter jwtAuthFilter;
+//    @Autowired
+//    private JwtAuthEntryPoint jwtAuthEntryPoint;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -42,20 +45,19 @@ public class AdminWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint)
-                .and()
                 .authorizeRequests()
-                .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
+                .antMatchers("/css/**", "/js/**", "/images/**", "/fonts/**", "/scss/**", "/vendor/**").permitAll()
+                .antMatchers("/api/login").permitAll()
+                .antMatchers("/api/register").permitAll()
+                .antMatchers("/api/*").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                    .loginPage("/admin/api/login").permitAll()
+                    .loginPage("/api/login").permitAll()
                     .usernameParameter("username")
                     .passwordParameter("password")
-//                    .loginProcessingUrl("/admin/api/do-login")
-                    .defaultSuccessUrl("/admin/api/home")
+                    .loginProcessingUrl("/api/do-login")
+                    .defaultSuccessUrl("/api/home")
                 .and()
                 .rememberMe()
                     .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30))
@@ -63,16 +65,23 @@ public class AdminWebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .rememberMeParameter("remember-me")
                 .and()
                 .logout()
-                    .logoutUrl("/admin/api/logout")
+                    .logoutUrl("/api/logout")
                     .clearAuthentication(true)
                     .invalidateHttpSession(true)
                     //It is recommended to use POST instead of GET if CSRF is enabled,
                     // but it is disabled, so we use GET instead
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/admin/api/logout", "GET"))
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/api/logout", "GET"))
                     .deleteCookies("JSESSIONID", "remember-me")
-                    .logoutSuccessUrl("/admin/api/login?logout");
+                    .logoutSuccessUrl("/api/login?logout");
 
-        http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+        //Uncomment this if you want to use JWT authentication
+
+//        http
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint)
+//                .and()
+//                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
@@ -89,11 +98,13 @@ public class AdminWebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        auth.userDetailsService(adminDetailsService).passwordEncoder(passwordEncoder());  //Option 2
     }
 
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+    //Uncomment this if you want to use JWT authentication
+
+//    @Bean
+//    @Override
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

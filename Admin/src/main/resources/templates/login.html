@@ -1,114 +1,59 @@
-<html lang="en" native-dark-active=""><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style">:root, ::after, ::before, ::backdrop {
-    --native-dark-accent-color: #a9a9a9;
-    --native-dark-bg-color: #292929;
-    --native-dark-bg-image-color: rgba(0, 0, 0, 0.10);
-    --native-dark-bg-image-filter: brightness(50%) contrast(200%);
-    --native-dark-border-color: #555555;
-    --native-dark-box-shadow: 0 0 0 1px rgb(255 255 255 / 10%);
-    --native-dark-cite-color: #92de92;
-    --native-dark-fill-color: #7d7d7d;
-    --native-dark-font-color: #dcdcdc;
-    --native-dark-link-color: #8db2e5;
-    --native-dark-opacity: 0.85;
-    --native-dark-text-shadow: none;
-    --native-dark-transparent-color: transparent;
-    --native-dark-visited-link-color: #c76ed7
-}
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form by Colorlib</title>
 
-:root {
-    color-scheme: dark;
-    accent-color: var(--native-dark-accent-color);
-}
+    <!-- Font Icon -->
+    <link rel="stylesheet" th:href="@{/fonts/material-icon/css/material-design-iconic-font.min.css}">
 
-html a:visited,
-html a:visited > * {
-    color: var(--native-dark-visited-link-color) !important;
-}
-
-a[ping]:link,
-a[ping]:link > *,
-:link:not(cite) {
-    color: var(--native-dark-link-color) !important;
-}
-
-html cite,
-html cite a:link,
-html cite a:visited {
-    color: var(--native-dark-cite-color) !important;
-}
-
-img,
-image,
-figure:empty {
-    opacity: var(--native-dark-opacity) !important;
-}
-</style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style><head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Please sign in</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous" class="native-dark-class-original">
-    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous" class="native-dark-class-original">
+    <!-- Main css -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<div class="container">
-    <form class="form-signin" method="post" action="/admin/api/login">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <p>
-            <label for="username" class="sr-only">Username</label>
-            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required="" autofocus="">
-        </p>
-        <p>
-            <label for="password" class="sr-only">Password</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
-        </p>
-        <p><input type="checkbox" name="remember-me"> Remember me on this computer.</p>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    </form>
+
+<div class="main">
+    <!-- Sing in  Form -->
+    <section class="sign-in">
+        <div class="container">
+            <div class="signin-content">
+                <div class="signin-image">
+                    <figure><img th:src="@{/images/signin-image.jpg}" alt="sing up image"></figure>
+                    <a th:href="@{/api/register}" class="signup-image-link">Create an account</a>
+                    <a href="#" class="signup-image-link">Forgot password</a>
+                </div>
+
+                <div class="signin-form">
+                    <h2 class="form-title">Log in</h2>
+                    <form method="POST" class="register-form" id="login-form" , th:action="@{/api/do-login}">
+                        <div class="form-group">
+                            <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text" name="username" id="username" placeholder="Username"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                            <input type="password" name="password" id="password" placeholder="Password"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" name="remember-me" id="remember-me" class="agree-term"/>
+                            <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember
+                                me</label>
+                        </div>
+                        <div class="form-group form-button">
+                            <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        $('#form-signin').submit(function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: 'http://localhost:8019/admin/api/login',
-                data: {
-                    username: $('#username').val(),
-                    password: $('#password').val()
-                },
-                success: function(response) {
-                    // Save the JWT token in local storage or cookies
-                    localStorage.setItem('jwtToken', response.token);
-                    // Redirect to the home page
-                    window.location.href = '/admin/api/home';
-                },
-                error: function(xhr) {
-                    // Handle login error
-                    alert('Login failed. Please try again.');
-                }
-            });
-        });
-    });
-
-    var token = localStorage.getItem('jwtToken');
-
-    $.ajax({
-        url: 'http://localhost:8019/admin/api/home',
-        type: 'GET', // Or any other HTTP method you are using
-        headers: {
-            'Authorization': 'Bearer ' + token
-        },
-        success: function(response) {
-            return response.data
-        },
-        error: function(error) {
-            // Handle any errors
-        }
-    });
-</script>
-</body></html>
+<!-- JS -->
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

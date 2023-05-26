@@ -2,8 +2,10 @@ package com.ecommerce.library.service.impl;
 
 import com.ecommerce.library.dto.AdminDTO;
 import com.ecommerce.library.entity.Admin;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class Mapper{
+    private static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     public static AdminDTO toAdminDTO(Admin admin) {
         return AdminDTO.builder()
                 .fullName(admin.getFullName())
@@ -18,9 +20,8 @@ public class Mapper{
         return Admin.builder()
                 .fullName(adminDTO.getFullName())
                 .username(adminDTO.getUsername())
+                .password(passwordEncoder.encode(adminDTO.getPassword()))
                 .email(adminDTO.getEmail())
-                .avatar(adminDTO.getAvatar())
-                .roles(adminDTO.getRoles())
                 .build();
     }
 }

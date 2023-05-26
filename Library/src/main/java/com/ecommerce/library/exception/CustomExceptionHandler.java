@@ -14,6 +14,7 @@ public class CustomExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<?> handleSysException(Exception ex) {
+        ex.printStackTrace();
         log.error(ex.getMessage());
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -23,6 +24,8 @@ public class CustomExceptionHandler {
     @ExceptionHandler(BadCredentialsException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<?> handleLoginException(BadCredentialsException ex){
+        log.error(ex.getMessage());
+        ex.printStackTrace();
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(new ErrorRes(HttpStatus.UNAUTHORIZED, ex.getMessage()));

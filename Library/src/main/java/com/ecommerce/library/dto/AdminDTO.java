@@ -12,6 +12,7 @@ import java.util.Set;
 public class AdminDTO implements Serializable {
     private String fullName;
     private String username;
+    private String password;
     private String email;
     private String avatar;
     private Set<Role> roles;
