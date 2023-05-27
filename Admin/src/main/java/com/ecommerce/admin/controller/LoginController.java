@@ -52,7 +52,7 @@ public class LoginController {
     @GetMapping("/home")
     @PreAuthorize("hasRole('ADMIN')")
     public String homePage() {
-        return "home";
+        return "index";
     }
 
     @PostMapping("/register")
