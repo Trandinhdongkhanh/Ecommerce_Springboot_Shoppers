@@ -9,7 +9,6 @@ import com.ecommerce.library.service.AdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -37,11 +36,6 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void save(AdminDTO adminDTO) {
         Admin admin = Mapper.toAdmin(adminDTO);
-        admin.setEnabled(true);
-        admin.setAccountNonExpired(true);
-        admin.setAccountNonLocked(true);
-        admin.setCredentialsNonExpired(true);
-        admin.setAvatar(null);
         admin.setRoles(Set.of(roleRepo.findByName(RoleEnum.ROLE_ADMIN).get()));
         adminRepo.save(admin);
     }

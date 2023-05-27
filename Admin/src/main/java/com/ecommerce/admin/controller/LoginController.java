@@ -14,7 +14,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.validation.Valid;
 
 @Controller
@@ -36,7 +39,7 @@ public class LoginController {
     }
 
     @GetMapping("/register")
-    public String getRegisterView(Model model){
+    public String getRegisterView(Model model) {
         model.addAttribute("adminDTO", AdminDTO.builder().build());
         return "register";
     }
@@ -48,8 +51,33 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public String addNewAdmin(@Valid @ModelAttribute("adminDTO") AdminDTO adminDTO){
-        adminService.save(adminDTO);
+    public String addNewAdmin(
+            @Valid @ModelAttribute("adminDTO") AdminDTO adminDTO,
+            Model model,
+            RedirectAttributes ra,
+            BindingResult result
+    ) {
+        try {
+            if (result.hasErrors()) {
+                model.addAttribute("adminDTO", adminDTO);
+                ra.addFlashAttribute("message", result.toString());
+                return "redirect:/api/register";
+            }
+            if (adminService.existsByUsername(adminDTO.getUsername())) {
+                model.addAttribute("adminDTO", adminDTO);
+                ra.addFlashAttribute("message", "Username existed!");
+                return "redirect:/api/register";
+            }
+            if (adminService.existsByEmail(adminDTO.getEmail())) {
+                model.addAttribute("adminDTO", adminDTO);
+                ra.addFlashAttribute("message", "Email existed!");
+                return "redirect:/api/register";
+            }
+            adminService.save(adminDTO);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return "redirect:/api/register";
+        }
         return "redirect:/api/login";
     }
 

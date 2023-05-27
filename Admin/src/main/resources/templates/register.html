@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sign Up Form by Colorlib</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
     <!-- Font Icon -->
     <link rel="stylesheet" th:href="@{/fonts/material-icon/css/material-design-iconic-font.min.css}">
@@ -22,22 +23,32 @@
             <div class="signup-content">
                 <div class="signup-form">
                     <h2 class="form-title">Register</h2>
-                    <form method="POST" class="register-form" id="register-form" th:action="@{/api/register}" th:object="${adminDTO}">
+
+                    <div th:if="${message}">
+                        <p class="alert alert-danger" th:text="${message}"></p>
+                    </div>
+
+                    <form method="POST" class="register-form" id="register-form" th:action="@{/api/register}"
+                          th:object="${adminDTO}">
                         <div class="form-group">
                             <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text" th:field="*{username}" name="name" id="name" placeholder="Username"/>
+                            <input type="text" th:field="*{username}" name="name" id="name" placeholder="Username"
+                                   required minlength="3" maxlength="20"/>
                         </div>
                         <div class="form-group">
                             <label for="email"><i class="zmdi zmdi-email"></i></label>
-                            <input type="email" th:field="*{email}" name="email" id="email" placeholder="Your Email"/>
+                            <input type="email" th:field="*{email}" name="email" id="email" placeholder="Your Email"
+                                   required minlength="8" maxlength="20"/>
                         </div>
                         <div class="form-group">
                             <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                            <input type="password" th:field="*{password}" name="pass" id="pass" placeholder="Password"/>
+                            <input type="password" th:field="*{password}" name="pass" id="pass" placeholder="Password"
+                                   required minlength="3" maxlength="20"/>
                         </div>
                         <div class="form-group">
                             <label for="fullname"><i class="zmdi zmdi-lock-outline"></i></label>
-                            <input type="text" th:field="*{fullName}" name="fullname" id="fullname" placeholder="Full name"/>
+                            <input type="text" th:field="*{fullName}" name="fullname" id="fullname"
+                                   placeholder="Full name" required minlength="3" maxlength="20"/>
                         </div>
                         <div class="form-group form-button">
                             <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>

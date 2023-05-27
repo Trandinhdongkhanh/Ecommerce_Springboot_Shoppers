@@ -5,7 +5,7 @@ import com.ecommerce.library.entity.Admin;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class Mapper{
-    private static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private static final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     public static AdminDTO toAdminDTO(Admin admin) {
         return AdminDTO.builder()
                 .fullName(admin.getFullName())
@@ -22,6 +22,11 @@ public class Mapper{
                 .username(adminDTO.getUsername())
                 .password(passwordEncoder.encode(adminDTO.getPassword()))
                 .email(adminDTO.getEmail())
+                .isAccountNonExpired(true)
+                .isAccountNonLocked(true)
+                .isCredentialsNonExpired(true)
+                .isEnabled(true)
+                .avatar(null)
                 .build();
     }
 }
