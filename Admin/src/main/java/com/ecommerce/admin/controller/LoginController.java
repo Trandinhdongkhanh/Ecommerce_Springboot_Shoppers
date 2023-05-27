@@ -34,19 +34,24 @@ public class LoginController {
     private AdminServiceImpl adminService;
 
     @GetMapping("/login")
-    public String getLoginView() {
+    public String loginForm() {
         return "login";
     }
 
     @GetMapping("/register")
-    public String getRegisterView(Model model) {
+    public String registerForm(Model model) {
         model.addAttribute("adminDTO", AdminDTO.builder().build());
         return "register";
     }
 
+    @GetMapping("/forgot_password")
+    public String forgetForm(){
+        return "forgot_password";
+    }
+
     @GetMapping("/home")
     @PreAuthorize("hasRole('ADMIN')")
-    public String getSuccessView() {
+    public String homePage() {
         return "home";
     }
 

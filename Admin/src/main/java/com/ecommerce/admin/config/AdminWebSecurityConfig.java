@@ -49,6 +49,7 @@ public class AdminWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**", "/js/**", "/images/**", "/fonts/**", "/scss/**", "/vendor/**").permitAll()
                 .antMatchers("/api/login").permitAll()
                 .antMatchers("/api/register").permitAll()
+                .antMatchers("/api/forgot_password").permitAll()
                 .antMatchers("/api/*").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()

@@ -30,4 +30,14 @@ public class CustomExceptionHandler {
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(new ErrorRes(HttpStatus.UNAUTHORIZED, ex.getMessage()));
     }
+
+    @ExceptionHandler(CategoryNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<?> handleCategoryException(CategoryNotFoundException ex){
+        log.error(ex.getMessage());
+        ex.printStackTrace();
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorRes(HttpStatus.BAD_REQUEST, ex.getMessage()));
+    }
 }
