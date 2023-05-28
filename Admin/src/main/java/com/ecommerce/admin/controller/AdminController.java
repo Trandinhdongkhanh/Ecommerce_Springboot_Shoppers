@@ -8,8 +8,4 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/api")
 public class AdminController {
-    @GetMapping("/categories")
-    public String getAllCategories(Model model){
-        return "categories";
-    }
 }

@@ -34,6 +34,6 @@ public class Category {
     private String name;
     private Boolean is_deleted;
     private Boolean is_activated;
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private List<Product> products;
 }
