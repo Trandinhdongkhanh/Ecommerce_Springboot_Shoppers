@@ -49,6 +49,7 @@ public class AdminWebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/css/**", "/js/**", "/images/**", "/fonts/**", "/scss/**", "/vendor/**").permitAll()
                 .antMatchers("/login_template/**").permitAll()  //allow access to all resource in the static/login_template folder
                 .antMatchers("/dashboard_template/**").permitAll()
+                .antMatchers("/img-product/**").permitAll()
                 .antMatchers("/api/login").permitAll()
                 .antMatchers("/api/register").permitAll()
                 .antMatchers("/api/forgot_password").permitAll()

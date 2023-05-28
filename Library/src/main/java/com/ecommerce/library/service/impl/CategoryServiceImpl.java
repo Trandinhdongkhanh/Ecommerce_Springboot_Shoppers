@@ -53,6 +53,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public List<Category> findAllByActivated() {
+        return cateRepo.findAllByIs_activated();
+    }
+
+    @Override
     public void enabledById(Long id) {
         Category category = cateRepo.getById(id);
         category.setIs_activated(true);

@@ -26,7 +26,7 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
                 <div>
-                    <form th:action="@{/search-result/0}" method="get">
+                    <form th:action="@{/api/search-result/0}" method="get">
                         <input type="text" id="search" name="keyword" placeholder="Search products">
                         <button type="submit" class="btn btn-primary">Search</button>
                     </form>
@@ -41,7 +41,7 @@
                 <div th:if="${error}" class="text-center alert alert-danger">
                     <p th:text="${error}"></p>
                 </div>
-                <a class="btn btn-primary" th:href="@{/add-product}">Add new product</a>
+                <a class="btn btn-primary" th:href="@{/api/add-product}">Add new product</a>
                 <table class="table table-striped" th:if="${size > 0}">
                     <thead>
                     <tr>
@@ -60,14 +60,14 @@
                         <td th:text="${product.category.name}"></td>
                         <td th:text="${product.costPrice}"></td>
                         <td th:text="${product.currentQuantity}"></td>
-                        <td><img src="" style="height: 40px; width: 40px;"
-                                 th:src="*{'data:image/jpeg;base64,' + ${product.image}}"></td>
+                        <td><img style="height: 40px; width: 40px;"
+                                 th:src="@{'data:image/jpeg;base64,' + ${product.image}}"></td>
                         <td><a th:href="@{/update-product/{id} (id = ${product.id})}" class="btn btn-primary">Update</a>
                         </td>
                         <td>
-                            <a th:if="${product.activated == false}"
+                            <a th:if="${product.is_activated == false}"
                                th:href="@{/enable-product/{id} (id = ${product.id})}" class="btn btn-warning">Enable</a>
-                            <a th:if="${product.deleted == false}"
+                            <a th:if="${product.is_deleted == false}"
                                th:href="@{/delete-product/{id} (id = ${product.id})}" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
@@ -113,29 +113,7 @@
 
 <!-- Logout Modal-->
 <!--Add Modal-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <form th:action="@{/api/add-category}" method="post" th:object="${categoryNew}">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New Category</h5>
-                </div>
-                <div class="modal-body">
 
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Name:</label>
-                        <input type="text" class="form-control" th:field="*{name}" id="recipient-name">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
 <!--end-->
 <!--Change Name category Modal-->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalExample"
