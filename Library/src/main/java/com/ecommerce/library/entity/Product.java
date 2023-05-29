@@ -1,16 +1,14 @@
 package com.ecommerce.library.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "products")
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,4 +32,19 @@ public class Product {
     private Category category;
     private Boolean is_deleted;
     private Boolean is_activated;
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", costPrice=" + costPrice +
+                ", salePrice=" + salePrice +
+                ", currentQuantity=" + currentQuantity +
+                ", category=" + category.getName() +
+                ", is_deleted=" + is_deleted +
+                ", is_activated=" + is_activated +
+                '}';
+    }
 }

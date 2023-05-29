@@ -1,10 +1,7 @@
 package com.ecommerce.library.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -20,7 +17,8 @@ import java.util.List;
                 )
         }
 )
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -36,4 +34,15 @@ public class Category {
     private Boolean is_activated;
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private List<Product> products;
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", is_deleted=" + is_deleted +
+                ", is_activated=" + is_activated +
+                ", products=" + products +
+                '}';
+    }
 }

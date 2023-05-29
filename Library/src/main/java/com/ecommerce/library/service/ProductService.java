@@ -9,7 +9,8 @@ import java.util.List;
 public interface ProductService {
     List<ProductDTO> findAll();
     Product save(MultipartFile imageProduct, ProductDTO productDTO);
-    Product update(ProductDTO productDTO);
+    Product update(MultipartFile imageProduct, ProductDTO productDTO);
     void deleteById(Long id);
     void enableById(Long id);
+    ProductDTO findById(Long id);
 }

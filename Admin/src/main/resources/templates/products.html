@@ -62,13 +62,13 @@
                         <td th:text="${product.currentQuantity}"></td>
                         <td><img style="height: 40px; width: 40px;"
                                  th:src="@{'data:image/jpeg;base64,' + ${product.image}}"></td>
-                        <td><a th:href="@{/update-product/{id} (id = ${product.id})}" class="btn btn-primary">Update</a>
+                        <td><a th:href="@{'/api/update-product/' + ${product.id}}" class="btn btn-primary">Update</a>
                         </td>
                         <td>
                             <a th:if="${product.is_activated == false}"
-                               th:href="@{/enable-product/{id} (id = ${product.id})}" class="btn btn-warning">Enable</a>
+                               th:href="@{/api/enable-product/{id} (id = ${product.id})}" class="btn btn-warning">Enable</a>
                             <a th:if="${product.is_deleted == false}"
-                               th:href="@{/delete-product/{id} (id = ${product.id})}" class="btn btn-danger">Delete</a>
+                               th:href="@{/api/delete-product/{id} (id = ${product.id})}" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                     </tbody>

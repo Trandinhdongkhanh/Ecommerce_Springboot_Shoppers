@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -57,8 +58,29 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product update(ProductDTO productDTO) {
-        return null;
+    public Product update(MultipartFile imageProduct, ProductDTO productDTO) {
+        try {
+            Product product = productRepo.findById(productDTO.getId()).get();
+            if (imageProduct == null) {
+                product.setImage(product.getImage());
+            } else {
+                if (!imageUpload.isExisted(imageProduct)) { //If the img is not existed, we upload it to the folder
+                    imageUpload.uploadImg(imageProduct);
+                }
+                product.setImage(Base64.getEncoder().encodeToString(imageProduct.getBytes()));
+            }
+            product.setName(productDTO.getName());
+            product.setDescription(productDTO.getDescription());
+            product.setSalePrice(productDTO.getSalePrice());
+            product.setCostPrice(productDTO.getCostPrice());
+            product.setCurrentQuantity(productDTO.getCurrentQuantity());
+            product.setCategory(productDTO.getCategory());
+            return productRepo.save(product);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override
@@ -69,5 +91,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void enableById(Long id) {
 
+    }
+
+    @Override
+    public ProductDTO findById(Long id) {
+        Optional<ProductDTO> productDTO = productRepo.findById(id).map(Mapper::toProductDTO);
+        return productDTO.orElse(null);
     }
 }

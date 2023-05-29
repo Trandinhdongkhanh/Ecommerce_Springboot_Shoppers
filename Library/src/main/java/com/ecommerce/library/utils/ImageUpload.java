@@ -26,4 +26,14 @@ public class ImageUpload {
         }
         return isUpload;
     }
+    public boolean isExisted(MultipartFile imageProduct){
+        boolean isExisted = false;
+        try {
+            File file = new File(UPLOAD_FOLDER + "\\" + imageProduct.getOriginalFilename());
+            isExisted = file.exists();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return isExisted;
+    }
 }
