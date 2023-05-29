@@ -37,19 +37,19 @@ public class ProductController {
         return "products";
     }
 
-//    @GetMapping("/products/{pageNo}")
-//    public String productsPage(@PathVariable("pageNo") int pageNo, Model model, Principal principal) {
-//        if (principal == null) {
-//            return "redirect:/login";
-//        }
-//        Page<ProductDTO> products = productService.pageProducts(pageNo);
-//        model.addAttribute("title", "Manage Product");
-//        model.addAttribute("size", products.getSize());
-//        model.addAttribute("totalPages", products.getTotalPages());
-//        model.addAttribute("currentPage", pageNo);
-//        model.addAttribute("products", products);
-//        return "products";
-//    }
+    @GetMapping("/products/{pageNo}")
+    public String productsPage(@PathVariable("pageNo") int pageNo, Model model, Principal principal) {
+        if (principal == null) {
+            return "redirect:/api/login";
+        }
+        Page<ProductDTO> products = productService.pageProduct(pageNo);
+        model.addAttribute("title", "Manage Product");
+        model.addAttribute("size", products.getSize());
+        model.addAttribute("totalPages", products.getTotalPages());
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("products", products);
+        return "products";
+    }
 
 //    @GetMapping("/search-result/{pageNo}")
 //    public String searchProducts(@PathVariable("pageNo") int pageNo,
@@ -120,6 +120,18 @@ public class ProductController {
         }
         return "redirect:/api/products";
 
+    }
+
+    @GetMapping("/delete-permanently/{id}")
+    public String deletePermanently(@PathVariable("id") Long id, RedirectAttributes ra) {
+        try {
+            productService.deletePermanently(id);
+            ra.addFlashAttribute("success", "Delete permanently successfully!");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            ra.addFlashAttribute("error", "Failed to delete permanently!");
+        }
+        return "redirect:/api/products";
     }
 
     @RequestMapping(value = "/enable-product/{id}", method = {RequestMethod.PUT, RequestMethod.GET})

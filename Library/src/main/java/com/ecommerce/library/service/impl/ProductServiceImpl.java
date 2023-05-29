@@ -7,6 +7,9 @@ import com.ecommerce.library.service.ProductService;
 import com.ecommerce.library.utils.ImageUpload;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +25,12 @@ public class ProductServiceImpl implements ProductService {
     private ImageUpload imageUpload;
     @Autowired
     private ProductRepo productRepo;
+
+    @Override
+    public Page<ProductDTO> pageProduct(int pageNo) {
+        Pageable pageable = PageRequest.of(pageNo, 5);
+        return productRepo.pageProduct(pageable).map(Mapper::toProductDTO);
+    }
 
     @Override
     public List<ProductDTO> findAll() {
@@ -85,17 +94,34 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteById(Long id) {
-
+        productRepo.findById(id).ifPresent(
+                product -> {
+                    product.setIs_deleted(true);
+                    product.setIs_activated(false);
+                    productRepo.save(product);
+                }
+        );
     }
 
     @Override
     public void enableById(Long id) {
-
+        productRepo.findById(id).ifPresent(
+                product -> {
+                    product.setIs_deleted(false);
+                    product.setIs_activated(true);
+                    productRepo.save(product);
+                }
+        );
     }
 
     @Override
     public ProductDTO findById(Long id) {
         Optional<ProductDTO> productDTO = productRepo.findById(id).map(Mapper::toProductDTO);
         return productDTO.orElse(null);
+    }
+
+    @Override
+    public void deletePermanently(Long id) {
+        productRepo.deleteById(id);
     }
 }
