@@ -54,7 +54,7 @@ public class Admin implements Serializable, UserDetails {
     @Lob //Dung de tao ra cac chuoi van ban dai
     @Column(columnDefinition = "MEDIUMBLOB")
     private String avatar;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "admins_roles",
             joinColumns = @JoinColumn(name = "admin_id", referencedColumnName = "admin_id"),

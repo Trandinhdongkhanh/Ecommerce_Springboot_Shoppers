@@ -27,6 +27,12 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepo productRepo;
 
     @Override
+    public Page<ProductDTO> searchProductByName(String keyword, int pageNo) {
+        Pageable pageable = PageRequest.of(pageNo, 5);
+        return productRepo.searchProductByName(keyword, pageable).map(Mapper::toProductDTO);
+    }
+
+    @Override
     public Page<ProductDTO> pageProduct(int pageNo) {
         Pageable pageable = PageRequest.of(pageNo, 5);
         return productRepo.pageProduct(pageable).map(Mapper::toProductDTO);

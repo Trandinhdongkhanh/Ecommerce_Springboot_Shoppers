@@ -51,22 +51,22 @@ public class ProductController {
         return "products";
     }
 
-//    @GetMapping("/search-result/{pageNo}")
-//    public String searchProducts(@PathVariable("pageNo") int pageNo,
-//                                 @RequestParam("keyword") String keyword,
-//                                 Model model,
-//                                 Principal principal) {
-//        if (principal == null) {
-//            return "redirect:/login";
-//        }
-//        Page<ProductDto> products = productService.searchProducts(pageNo, keyword);
-//        model.addAttribute("title", "Search Result");
-//        model.addAttribute("products", products);
-//        model.addAttribute("size", products.getSize());
-//        model.addAttribute("currentPage", pageNo);
-//        model.addAttribute("totalPages", products.getTotalPages());
-//        return "result-products";
-//    }
+    @GetMapping("/search-result/{pageNo}")
+    public String searchProducts(@PathVariable("pageNo") int pageNo,
+                                 @RequestParam("keyword") String keyword,
+                                 Model model,
+                                 Principal principal) {
+        if (principal == null) {
+            return "redirect:/api/login";
+        }
+        Page<ProductDTO> products = productService.searchProductByName(keyword, pageNo);
+        model.addAttribute("title", "Search Result");
+        model.addAttribute("products", products);
+        model.addAttribute("size", products.getSize());
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", products.getTotalPages());
+        return "result-products";
+    }
 
 
     @GetMapping("/add-product")

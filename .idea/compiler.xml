@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Admin" />
+        <module name="Customer" />
         <module name="Library" />
       </profile>
     </annotationProcessing>
@@ -14,6 +15,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Admin" options="-parameters" />
+      <module name="Customer" options="-parameters" />
       <module name="Library" options="-parameters" />
     </option>
   </component>
