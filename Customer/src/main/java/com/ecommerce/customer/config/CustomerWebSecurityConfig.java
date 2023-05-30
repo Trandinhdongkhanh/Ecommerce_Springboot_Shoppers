@@ -66,11 +66,11 @@ public class CustomerWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 //                .antMatchers("/css/**", "/js/**", "/images/**", "/fonts/**", "/scss/**", "/vendor/**").permitAll()
                 .antMatchers("/login_template/**").permitAll()  //allow access to all resource in the static/login_template folder
-                .antMatchers("/dashboard_template/**").permitAll()
-                .antMatchers("/img-product/**").permitAll()
+//                .antMatchers("/img-product/**").permitAll()
                 .antMatchers("/api/login").permitAll()
                 .antMatchers("/api/register").permitAll()
                 .antMatchers("/api/forgot_password").permitAll()
+                .antMatchers("/api/home").permitAll()
                 .antMatchers("/api/**").hasRole("CUSTOMER")
                 .anyRequest().authenticated()
                 .and()
