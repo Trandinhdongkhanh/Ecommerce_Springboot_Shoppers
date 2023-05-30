@@ -58,6 +58,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public void deletePermanently(Long id) {
+        cateRepo.deleteById(id);
+    }
+
+    @Override
     public void enabledById(Long id) {
         Category category = cateRepo.getById(id);
         category.setIs_activated(true);

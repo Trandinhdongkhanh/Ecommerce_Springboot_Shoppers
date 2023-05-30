@@ -4,6 +4,7 @@ import com.ecommerce.library.dto.ProductDTO;
 import com.ecommerce.library.entity.Category;
 import com.ecommerce.library.service.CategoryService;
 import com.ecommerce.library.service.ProductService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/api")
+@Slf4j
 public class ProductController {
 
     @Autowired
@@ -27,13 +29,17 @@ public class ProductController {
 
     @GetMapping("/products")
     public String products(Model model, Principal principal) {
+        try {
+            List<ProductDTO> productDtoList = productService.findAll();
+            model.addAttribute("title", "Manage Product");
+            model.addAttribute("products", productDtoList);
+            model.addAttribute("size", productDtoList.size());
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+        }
         if (principal == null) {
             return "redirect:/login";
         }
-        List<ProductDTO> productDtoList = productService.findAll();
-        model.addAttribute("title", "Manage Product");
-        model.addAttribute("products", productDtoList);
-        model.addAttribute("size", productDtoList.size());
         return "products";
     }
 

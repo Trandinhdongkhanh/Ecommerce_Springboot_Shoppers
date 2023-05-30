@@ -48,6 +48,18 @@ public class CategoryController {
 
     }
 
+    @GetMapping("/delete-category-permanently/{id}")
+    public String deletePermanently(@PathVariable("id") Long id, RedirectAttributes ra) {
+        try {
+            categoryService.deletePermanently(id);
+            ra.addFlashAttribute("success", "Delete permanently successfully");
+        } catch (Exception ex) {
+            ra.addFlashAttribute("failed", "Can't delete permanently");
+            ex.printStackTrace();
+        }
+        return "redirect:/api/categories";
+    }
+
     @RequestMapping(value = "/findById", method = {RequestMethod.PUT, RequestMethod.GET})
     @ResponseBody
     public Category findById(Long id) {
@@ -92,6 +104,4 @@ public class CategoryController {
         }
         return "redirect:/api/categories";
     }
-
-
 }

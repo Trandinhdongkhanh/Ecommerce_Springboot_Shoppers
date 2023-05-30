@@ -62,6 +62,9 @@
                             <a th:if="${category.is_activated} == false"
                                th:href="@{/api/enable-category/(id = ${category.id})}" class="btn btn-primary">Enabled</a>
                         </td>
+                        <td>
+                            <a th:href="@{/api/delete-category-permanently/{id} (id = ${category.id})}" class="btn btn-danger">Delete permanently</a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

@@ -32,7 +32,7 @@ public class Category {
     private String name;
     private Boolean is_deleted;
     private Boolean is_activated;
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Product> products;
 
     @Override

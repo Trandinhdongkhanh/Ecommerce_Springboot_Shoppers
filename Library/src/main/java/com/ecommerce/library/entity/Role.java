@@ -31,4 +31,6 @@ public class Role implements Serializable {
     private RoleEnum name;
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Admin> admins;
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Customer> customers;
 }
