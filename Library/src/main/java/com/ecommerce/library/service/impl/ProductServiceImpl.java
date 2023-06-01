@@ -13,10 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -42,6 +40,13 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDTO> findAll() {
         List<ProductDTO> productDTOS = new ArrayList<>();
         productRepo.findAll().forEach(product -> productDTOS.add(Mapper.toProductDTO(product)));
+        return productDTOS;
+    }
+
+    @Override
+    public List<ProductDTO> findAllByActivated() {
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        productRepo.findAllByIs_activated().forEach(product -> productDTOS.add(Mapper.toProductDTO(product)));
         return productDTOS;
     }
 
@@ -129,5 +134,15 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deletePermanently(Long id) {
         productRepo.deleteById(id);
+    }
+
+    @Override
+    public List<ProductDTO> listViewProducts() {
+        return productRepo.listViewProducts().stream().map(Mapper::toProductDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDTO> getRelatedProducts(Long cateId) {
+        return productRepo.getRelatedProducts(cateId).stream().map(Mapper::toProductDTO).collect(Collectors.toList());
     }
 }
