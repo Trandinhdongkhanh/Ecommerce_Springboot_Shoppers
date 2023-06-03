@@ -13,13 +13,22 @@ import java.util.List;
 public interface ProductRepo extends JpaRepository<Product, Long> {
     @Query("select p from Product p")
     Page<Product> pageProduct(Pageable pageable);
+
     @Query("select p from Product p where p.description like %?1% or p.name like %?1%")
     Page<Product> searchProductByName(String keyword, Pageable pageable);
+
     @Query("select p from Product p where p.is_activated = true and p.is_deleted = false")
     List<Product> findAllByIs_activated();
+
     @Query(value = "select * from products p where p.is_deleted = false and p.is_activated = true order by rand() asc limit 4 ", nativeQuery = true)
     List<Product> listViewProducts();
 
-    @Query("select p from Product p where p.category.id = ?1")
+    @Query("select p from Product p where p.category.id = ?1 and p.is_activated = true and p.is_deleted = false")
     List<Product> getRelatedProducts(Long cateId);
+
+    @Query("select p from Product p where p.is_activated = true and p.is_deleted = false order by p.costPrice desc")
+    List<Product> filterHighPrice();
+
+    @Query("select p from Product p where p.is_activated = true and p.is_deleted = false order by p.costPrice asc")
+    List<Product> filterLowPrice();
 }

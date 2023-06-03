@@ -20,9 +20,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private RoleRepo roleRepo;
     @Override
-    public Customer findByUsername(String username) {
+    public CustomerDTO findByUsername(String username) {
         return customerRepo
                 .findByUsername(username)
+                .map(Mapper::toCustomerDTO)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("User %s not found", username)));
     }
 

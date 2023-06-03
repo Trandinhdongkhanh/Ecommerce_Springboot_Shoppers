@@ -68,7 +68,7 @@ public class Customer implements Serializable, UserDetails {
     @Column(columnDefinition = "MEDIUMBLOB")
     private String avatar;
     @OneToOne(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Cart shoppingCart;
+    private Cart cart;
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Order> orders;
     @ManyToMany(fetch = FetchType.EAGER)

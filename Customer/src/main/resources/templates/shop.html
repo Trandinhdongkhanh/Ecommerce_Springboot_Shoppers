@@ -113,7 +113,7 @@
                         </div>
                         <div class="list-group list-group-collapse list-group-sm list-group-tree" id="list-group-men"
                              data-children=".sub-men" th:each="category : ${categories}">
-                            <a th:href="@{/products-in-category/{id}(id = ${category.id})}"
+                            <a th:href="@{/api/products-in-category/{id}(id = ${category.id})}"
                                class="list-group-item list-group-item-action" th:text="${category.name}"><small
                                     class="text-muted"></small></a>
                         </div>

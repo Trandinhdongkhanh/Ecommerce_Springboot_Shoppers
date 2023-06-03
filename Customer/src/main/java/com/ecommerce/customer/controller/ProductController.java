@@ -20,8 +20,9 @@ public class ProductController {
     private ProductService productService;
     @Autowired
     private CategoryService cateService;
+
     @GetMapping("/products")
-    public String getAllProducts(Model model){
+    public String getAllProducts(Model model) {
         List<ProductDTO> productDTOS = productService.findAllByActivated();
         List<Category> categories = cateService.findAllByActivated();
         List<ProductDTO> listViewProducts = productService.listViewProducts();
@@ -32,11 +33,38 @@ public class ProductController {
     }
 
     @GetMapping("/find-product/{id}")
-    public String getProductDetail(@PathVariable("id") Long id, Model model){
+    public String getProductDetail(@PathVariable("id") Long id, Model model) {
         ProductDTO product = productService.findById(id);
         List<ProductDTO> relatedProducts = productService.getRelatedProducts(product.getCategory().getId());
         model.addAttribute("product", product);
         model.addAttribute("relatedProducts", relatedProducts);
         return "product-detail";
+    }
+
+    @GetMapping("/products-in-category/{id}")
+    public String getProductByCategory(@PathVariable("id") Long id, Model model) {
+        List<ProductDTO> products = productService.getRelatedProducts(id);
+        List<Category> categories = cateService.findAllByActivated();
+        model.addAttribute("products", products);
+        model.addAttribute("categories", categories);
+        model.addAttribute("viewProducts", products);
+        return "shop";
+    }
+
+    @GetMapping("/high-price")
+    public String filterHighPrice(Model model) {
+        List<Category> categories = cateService.findAllByActivated();
+        List<ProductDTO> products = productService.filterHighPrice();
+        model.addAttribute("products", products);
+        model.addAttribute("categories", categories);
+        return "shop";
+    }
+    @GetMapping("/low-price")
+    public String filterLowPrice(Model model) {
+        List<Category> categories = cateService.findAllByActivated();
+        List<ProductDTO> products = productService.filterLowPrice();
+        model.addAttribute("products", products);
+        model.addAttribute("categories", categories);
+        return "shop";
     }
 }

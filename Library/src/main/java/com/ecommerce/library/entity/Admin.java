@@ -69,7 +69,7 @@ public class Admin implements Serializable, UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-        for (Role role : roles){
+        for (Role role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.getName().name()));
         }
         return authorities;

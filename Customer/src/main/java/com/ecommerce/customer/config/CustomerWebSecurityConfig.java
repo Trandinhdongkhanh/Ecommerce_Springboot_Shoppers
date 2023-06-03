@@ -71,7 +71,7 @@ public class CustomerWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/register").permitAll()
                 .antMatchers("/api/forgot_password").permitAll()
                 .antMatchers("/api/home").permitAll()
-                .antMatchers("/api/**").hasRole("CUSTOMER")
+                .antMatchers("/api/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

@@ -63,6 +63,7 @@ public class Mapper{
                 .address(customer.getAddress())
                 .avatar(customer.getAvatar())
                 .roles(customer.getRoles())
+                .cart(customer.getCart())
                 .build();
     }
     public static Customer toCustomer(CustomerDTO customerDTO){

@@ -145,4 +145,14 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDTO> getRelatedProducts(Long cateId) {
         return productRepo.getRelatedProducts(cateId).stream().map(Mapper::toProductDTO).collect(Collectors.toList());
     }
+
+    @Override
+    public List<ProductDTO> filterHighPrice() {
+        return productRepo.filterHighPrice().stream().map(Mapper::toProductDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDTO> filterLowPrice() {
+        return productRepo.filterLowPrice().stream().map(Mapper::toProductDTO).collect(Collectors.toList());
+    }
 }

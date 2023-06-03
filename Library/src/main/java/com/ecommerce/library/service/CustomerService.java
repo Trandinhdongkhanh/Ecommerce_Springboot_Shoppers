@@ -6,7 +6,7 @@ import com.ecommerce.library.entity.Customer;
 import java.util.Optional;
 
 public interface CustomerService {
-    Customer findByUsername(String username);
+    CustomerDTO findByUsername(String username);
     void register(CustomerDTO customerDTO);
     Boolean existByUsername(String username);
     Boolean existByEmail(String email);

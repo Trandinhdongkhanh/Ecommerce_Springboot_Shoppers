@@ -10,15 +10,30 @@ import java.util.List;
 
 public interface ProductService {
     Page<ProductDTO> searchProductByName(String keyword, int pageNo);
+
     Page<ProductDTO> pageProduct(int pageNo);
+
     List<ProductDTO> findAll();
+
     List<ProductDTO> findAllByActivated();
+
     Product save(MultipartFile imageProduct, ProductDTO productDTO);
+
     Product update(MultipartFile imageProduct, ProductDTO productDTO);
+
     void deleteById(Long id);
+
     void enableById(Long id);
+
     ProductDTO findById(Long id);
+
     void deletePermanently(Long id);
+
     List<ProductDTO> listViewProducts();
+
     List<ProductDTO> getRelatedProducts(Long cateId);
+
+    List<ProductDTO> filterHighPrice();
+
+    List<ProductDTO> filterLowPrice();
 }

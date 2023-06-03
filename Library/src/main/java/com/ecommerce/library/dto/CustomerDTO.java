@@ -1,5 +1,6 @@
 package com.ecommerce.library.dto;
 
+import com.ecommerce.library.entity.Cart;
 import com.ecommerce.library.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,4 +31,5 @@ public class CustomerDTO {
     private String address;
     private String avatar;
     private Set<Role> roles;
+    private Cart cart;
 }
