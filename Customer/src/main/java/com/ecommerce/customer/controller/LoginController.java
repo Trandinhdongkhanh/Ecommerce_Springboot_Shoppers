@@ -3,6 +3,7 @@ package com.ecommerce.customer.controller;
 import com.ecommerce.customer.jwt.JwtCustomerTokenProvider;
 import com.ecommerce.library.dto.CustomerDTO;
 import com.ecommerce.library.entity.Customer;
+import com.ecommerce.library.service.CartService;
 import com.ecommerce.library.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -48,6 +49,8 @@ public class LoginController {
 
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private CartService cartService;
 
     @GetMapping("/login")
     public String loginForm() {

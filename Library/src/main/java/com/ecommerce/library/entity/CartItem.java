@@ -20,8 +20,6 @@ public class CartItem {
     private Integer quantity;
     @Column(nullable = false, name = "total_price")
     private Double totalPrice;
-    @Column(nullable = false, name = "unit_price")
-    private Double unitPrice;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cart_id", referencedColumnName = "cart_id")
     private Cart cart;

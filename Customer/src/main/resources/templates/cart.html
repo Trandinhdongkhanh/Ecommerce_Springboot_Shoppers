@@ -55,11 +55,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="cartItem : ${shoppingCart.cartItem}">
+                        <tr th:each="cartItem : ${shoppingCart.cartItems}">
                             <td class="thumbnail-img">
                                 <a href="#">
                                     <img class="img-fluid"
-                                         th:src="*{'data:image/jpeg;base64,' + cartItem.product.image}" alt=""/>
+                                         th:src="@{'data:image/jpeg;base64,' + ${cartItem.product.image}}" alt=""/>
                                 </a>
                             </td>
                             <td class="name-pr">
@@ -68,7 +68,7 @@
                             <td class="price-pr">
                                 <p th:text="'$' + ${cartItem.product.costPrice}"></p>
                             </td>
-                            <form th:action="@{/update-cart}" method="post">
+                            <form th:action="@{/api/update-cart}" method="post">
                                 <input type="hidden" name="id" th:value="${cartItem.product.id}">
                                 <td class="quantity-box"><input type="number" size="4" th:value="${cartItem.quantity}"
                                                                 name="quantity" min="0" step="1"
@@ -123,7 +123,7 @@
                     <hr>
                 </div>
             </div>
-            <div class="col-12 d-flex shopping-box"><a th:href="@{/check-out}" class="ml-auto btn hvr-hover">Checkout</a>
+            <div class="col-12 d-flex shopping-box"><a th:href="@{/api/check-out}" class="ml-auto btn hvr-hover">Checkout</a>
             </div>
         </div>
 

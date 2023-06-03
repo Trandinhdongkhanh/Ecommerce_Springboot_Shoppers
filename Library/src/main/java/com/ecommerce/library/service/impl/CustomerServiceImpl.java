@@ -1,6 +1,7 @@
 package com.ecommerce.library.service.impl;
 
 import com.ecommerce.library.dto.CustomerDTO;
+import com.ecommerce.library.entity.Cart;
 import com.ecommerce.library.entity.Customer;
 import com.ecommerce.library.repository.CustomerRepo;
 import com.ecommerce.library.repository.RoleRepo;
@@ -19,6 +20,7 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepo customerRepo;
     @Autowired
     private RoleRepo roleRepo;
+
     @Override
     public CustomerDTO findByUsername(String username) {
         return customerRepo
@@ -31,6 +33,12 @@ public class CustomerServiceImpl implements CustomerService {
     public void register(CustomerDTO customerDTO) {
         Customer customer = Mapper.toCustomer(customerDTO);
         customer.setRoles(Set.of(roleRepo.findByName(ROLE_CUSTOMER).get()));
+        customer.setCart(Cart.builder()
+                .totalItems(null)
+                .totalPrices(null)
+                .cartItems(null)
+                .customer(customer)
+                .build());
         customerRepo.save(customer);
     }
 

@@ -51,6 +51,21 @@ public class Mapper{
                 .build();
     }
 
+    public static Product toProduct(ProductDTO productDTO){
+        return Product.builder()
+                .id(productDTO.getId())
+                .name(productDTO.getName())
+                .description(productDTO.getDescription())
+                .costPrice(productDTO.getCostPrice())
+                .salePrice(productDTO.getSalePrice())
+                .currentQuantity(productDTO.getCurrentQuantity())
+                .image(productDTO.getImage())
+                .category(productDTO.getCategory())
+                .is_deleted(productDTO.getIs_deleted())
+                .is_activated(productDTO.getIs_activated())
+                .build();
+    }
+
     public static CustomerDTO toCustomerDTO(Customer customer){
         return CustomerDTO.builder()
                 .fullName(customer.getFullName())
@@ -76,7 +91,6 @@ public class Mapper{
                 .city(customerDTO.getCity())
                 .phoneNo(customerDTO.getPhoneNo())
                 .address(customerDTO.getAddress())
-                .avatar(null)
                 .isEnabled(true)
                 .isAccountNonExpired(true)
                 .isAccountNonLocked(true)
