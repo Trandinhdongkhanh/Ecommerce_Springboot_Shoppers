@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import static com.ecommerce.library.enums.RoleEnum.ROLE_CUSTOMER;
@@ -34,9 +35,9 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = Mapper.toCustomer(customerDTO);
         customer.setRoles(Set.of(roleRepo.findByName(ROLE_CUSTOMER).get()));
         customer.setCart(Cart.builder()
-                .totalItems(null)
-                .totalPrices(null)
-                .cartItems(null)
+                .totalItems(0)
+                .totalPrices(0.0)
+                .cartItems(new HashSet<>())
                 .customer(customer)
                 .build());
         customerRepo.save(customer);
@@ -55,5 +56,18 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Boolean existByPhoneNo(String phoneNo) {
         return customerRepo.existsByPhoneNo(phoneNo);
+    }
+
+    @Override
+    public void save(CustomerDTO customerDTO) {
+        Customer customer = customerRepo.findById(customerDTO.getId()).get();
+        customer.setFullName(customerDTO.getFullName());
+        customer.setUsername(customerDTO.getUsername());
+        customer.setEmail(customerDTO.getEmail());
+        customer.setCountry(customerDTO.getCountry());
+        customer.setCity(customerDTO.getCity());
+        customer.setPhoneNo(customer.getPhoneNo());
+        customer.setAddress(customerDTO.getAddress());
+        customerRepo.save(customer);
     }
 }

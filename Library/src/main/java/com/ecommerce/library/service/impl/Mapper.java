@@ -8,8 +8,6 @@ import com.ecommerce.library.entity.Customer;
 import com.ecommerce.library.entity.Product;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.Set;
-
 
 public class Mapper{
     private static final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -68,6 +66,7 @@ public class Mapper{
 
     public static CustomerDTO toCustomerDTO(Customer customer){
         return CustomerDTO.builder()
+                .id(customer.getId())
                 .fullName(customer.getFullName())
                 .username(customer.getUsername())
                 .password(customer.getPassword())
@@ -83,6 +82,7 @@ public class Mapper{
     }
     public static Customer toCustomer(CustomerDTO customerDTO){
         return Customer.builder()
+                .id(customerDTO.getId())
                 .fullName(customerDTO.getFullName())
                 .username(customerDTO.getUsername())
                 .password(passwordEncoder.encode(customerDTO.getPassword()))

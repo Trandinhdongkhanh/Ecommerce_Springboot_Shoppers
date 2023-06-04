@@ -16,6 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CustomerDTO {
+    private Long id;
     @Size(min = 3, max = 20, message = "Invalid name!(3-20 characters")
     private String fullName;
     @Size(min = 3, max = 20, message = "Invalid username!(3-20 characters")

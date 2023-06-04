@@ -11,4 +11,5 @@ public interface CustomerService {
     Boolean existByUsername(String username);
     Boolean existByEmail(String email);
     Boolean existByPhoneNo(String phoneNo);
+    void save(CustomerDTO customerDTO);
 }
