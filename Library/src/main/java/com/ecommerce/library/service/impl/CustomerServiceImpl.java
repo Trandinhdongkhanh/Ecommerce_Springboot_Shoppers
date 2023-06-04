@@ -26,13 +26,13 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDTO findByUsername(String username) {
         return customerRepo
                 .findByUsername(username)
-                .map(Mapper::toCustomerDTO)
+                .map(customer -> Mapper.getInstance().toCustomerDTO(customer))
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("User %s not found", username)));
     }
 
     @Override
     public void register(CustomerDTO customerDTO) {
-        Customer customer = Mapper.toCustomer(customerDTO);
+        Customer customer = Mapper.getInstance().toCustomer(customerDTO);
         customer.setRoles(Set.of(roleRepo.findByName(ROLE_CUSTOMER).get()));
         customer.setCart(Cart.builder()
                 .totalItems(0)

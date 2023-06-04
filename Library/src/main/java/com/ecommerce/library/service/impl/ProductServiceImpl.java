@@ -27,26 +27,26 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<ProductDTO> searchProductByName(String keyword, int pageNo) {
         Pageable pageable = PageRequest.of(pageNo, 5);
-        return productRepo.searchProductByName(keyword, pageable).map(Mapper::toProductDTO);
+        return productRepo.searchProductByName(keyword, pageable).map(product ->  Mapper.getInstance().toProductDTO(product));
     }
 
     @Override
     public Page<ProductDTO> pageProduct(int pageNo) {
         Pageable pageable = PageRequest.of(pageNo, 5);
-        return productRepo.pageProduct(pageable).map(Mapper::toProductDTO);
+        return productRepo.pageProduct(pageable).map(product ->  Mapper.getInstance().toProductDTO(product));
     }
 
     @Override
     public List<ProductDTO> findAll() {
         List<ProductDTO> productDTOS = new ArrayList<>();
-        productRepo.findAll().forEach(product -> productDTOS.add(Mapper.toProductDTO(product)));
+        productRepo.findAll().forEach(product -> productDTOS.add(Mapper.getInstance().toProductDTO(product)));
         return productDTOS;
     }
 
     @Override
     public List<ProductDTO> findAllByActivated() {
         List<ProductDTO> productDTOS = new ArrayList<>();
-        productRepo.findAllByIs_activated().forEach(product -> productDTOS.add(Mapper.toProductDTO(product)));
+        productRepo.findAllByIs_activated().forEach(product -> productDTOS.add(Mapper.getInstance().toProductDTO(product)));
         return productDTOS;
     }
 
@@ -127,7 +127,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO findById(Long id) {
-        Optional<ProductDTO> productDTO = productRepo.findById(id).map(Mapper::toProductDTO);
+        Optional<ProductDTO> productDTO = productRepo.findById(id).map(product -> Mapper.getInstance().toProductDTO(product));
         return productDTO.orElse(null);
     }
 
@@ -138,21 +138,21 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> listViewProducts() {
-        return productRepo.listViewProducts().stream().map(Mapper::toProductDTO).collect(Collectors.toList());
+        return productRepo.listViewProducts().stream().map(product -> Mapper.getInstance().toProductDTO(product)).collect(Collectors.toList());
     }
 
     @Override
     public List<ProductDTO> getRelatedProducts(Long cateId) {
-        return productRepo.getRelatedProducts(cateId).stream().map(Mapper::toProductDTO).collect(Collectors.toList());
+        return productRepo.getRelatedProducts(cateId).stream().map(product -> Mapper.getInstance().toProductDTO(product)).collect(Collectors.toList());
     }
 
     @Override
     public List<ProductDTO> filterHighPrice() {
-        return productRepo.filterHighPrice().stream().map(Mapper::toProductDTO).collect(Collectors.toList());
+        return productRepo.filterHighPrice().stream().map(product -> Mapper.getInstance().toProductDTO(product)).collect(Collectors.toList());
     }
 
     @Override
     public List<ProductDTO> filterLowPrice() {
-        return productRepo.filterLowPrice().stream().map(Mapper::toProductDTO).collect(Collectors.toList());
+        return productRepo.filterLowPrice().stream().map(product -> Mapper.getInstance().toProductDTO(product)).collect(Collectors.toList());
     }
 }

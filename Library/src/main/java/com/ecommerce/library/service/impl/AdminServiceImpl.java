@@ -29,13 +29,13 @@ public class AdminServiceImpl implements AdminService {
     public AdminDTO findByUsername(String username) {
         log.info("Finding user");
         return adminRepo.findByUsername(username)
-                .map(Mapper::toAdminDTO)
+                .map(admin ->  Mapper.getInstance().toAdminDTO(admin))
                 .orElseThrow(()-> new UsernameNotFoundException(String.format("User: %s not found", username)));
     }
 
     @Override
     public void save(AdminDTO adminDTO) {
-        Admin admin = Mapper.toAdmin(adminDTO);
+        Admin admin = Mapper.getInstance().toAdmin(adminDTO);
         admin.setRoles(Set.of(roleRepo.findByName(RoleEnum.ROLE_ADMIN).get()));
         adminRepo.save(admin);
     }

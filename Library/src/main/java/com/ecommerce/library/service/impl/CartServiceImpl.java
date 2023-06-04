@@ -27,12 +27,12 @@ public class CartServiceImpl implements CartService {
     public Cart addItemToCart(ProductDTO productDTO, int quantity, CustomerDTO customerDTO) {
         Cart cart = customerDTO.getCart();
         Set<CartItem> cartItems = cart.getCartItems();
-        if (!itemRepo.existsByCartAndProduct(customerDTO.getCart(), Mapper.toProduct(productDTO))) {
+        if (!itemRepo.existsByCartAndProduct(customerDTO.getCart(), Mapper.getInstance().toProduct(productDTO))) {
             CartItem cartItem = CartItem.builder()
                     .quantity(quantity)
                     .totalPrice(quantity * productDTO.getCostPrice())
                     .cart(customerDTO.getCart())
-                    .product(Mapper.toProduct(productDTO))
+                    .product(Mapper.getInstance().toProduct(productDTO))
                     .build();
             cartItems.add(cartItem);
             itemRepo.save(cartItem);
@@ -108,7 +108,7 @@ public class CartServiceImpl implements CartService {
             Cart cart = Cart.builder()
                     .totalItems(null)
                     .totalPrices(null)
-                    .customer(Mapper.toCustomer(customerDTO))
+                    .customer(Mapper.getInstance().toCustomer(customerDTO))
                     .build();
             cartRepo.save(cart);
         } catch (Exception ex) {

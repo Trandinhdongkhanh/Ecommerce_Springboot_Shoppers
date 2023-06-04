@@ -11,7 +11,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class Mapper{
     private static final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    public static AdminDTO toAdminDTO(Admin admin) {
+    private static Mapper instance;
+    private Mapper(){
+
+    }
+    public static Mapper getInstance(){
+        if (instance == null){
+            instance = new Mapper();
+        }
+        return instance;
+    }
+    public AdminDTO toAdminDTO(Admin admin) {
         return AdminDTO.builder()
                 .fullName(admin.getFullName())
                 .username(admin.getUsername())
@@ -21,7 +31,7 @@ public class Mapper{
                 .build();
     }
 
-    public static Admin toAdmin(AdminDTO adminDTO) {
+    public Admin toAdmin(AdminDTO adminDTO) {
         return Admin.builder()
                 .fullName(adminDTO.getFullName())
                 .username(adminDTO.getUsername())
@@ -34,7 +44,7 @@ public class Mapper{
                 .avatar(null)
                 .build();
     }
-    public static ProductDTO toProductDTO(Product product){
+    public ProductDTO toProductDTO(Product product){
         return ProductDTO.builder()
                 .id(product.getId())
                 .name(product.getName())
@@ -49,7 +59,7 @@ public class Mapper{
                 .build();
     }
 
-    public static Product toProduct(ProductDTO productDTO){
+    public Product toProduct(ProductDTO productDTO){
         return Product.builder()
                 .id(productDTO.getId())
                 .name(productDTO.getName())
@@ -64,7 +74,7 @@ public class Mapper{
                 .build();
     }
 
-    public static CustomerDTO toCustomerDTO(Customer customer){
+    public CustomerDTO toCustomerDTO(Customer customer){
         return CustomerDTO.builder()
                 .id(customer.getId())
                 .fullName(customer.getFullName())
@@ -81,7 +91,7 @@ public class Mapper{
                 .orders(customer.getOrders())
                 .build();
     }
-    public static Customer toCustomer(CustomerDTO customerDTO){
+    public Customer toCustomer(CustomerDTO customerDTO){
         return Customer.builder()
                 .id(customerDTO.getId())
                 .fullName(customerDTO.getFullName())
