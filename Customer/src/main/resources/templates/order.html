@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<!-- Basic -->
+
+<head th:replace="fragments::head">
+
+
+</head>
+
+<body>
+<!-- Start Main Top -->
+<div th:replace="fragments::main-top">
+</div>
+<!-- End Main Top -->
+
+<!-- Start Main Top -->
+<header th:replace="fragments::main-header">
+</header>
+<!-- End Main Top -->
+
+<!-- Start Top Search -->
+<div th:replace="fragments::top-search">
+</div>
+<!-- End Top Search -->
+
+<!-- Start All Title Box -->
+<div th:replace="fragments::slider">
+</div>
+<!-- End All Title Box -->
+
+<!-- Update Personal Information -->
+<section>
+    <div class="cart-box-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-main table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th class="order-date">Order Date</th>
+                                <th>Delivery Date</th>
+                                <th class="price-pr">Order Status</th>
+                                <th class="quantity-box">Total Price</th>
+                                <th class="total-pr">Payment Method</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="order : ${orders}">
+                                <td class="order-date">
+                                    <span><b th:text="${order.orderDate}"></b></span>
+                                </td>
+                                <td class="name-pr" th:if="${order.deliveryDate != null}">
+                                    <p th:text="${order.deliveryDate}">
+                                    </p>
+                                </td>
+                                <td class="name-pr" th:if="${order.deliveryDate == null}">
+                                    <p>Waiting...</p>
+                                </td>
+                                <td class="price-pr">
+                                    <p th:text="${order.orderStatus}"></p>
+                                </td>
+                                <td class="total-pr">
+                                    <p style="color: red" th:text="${'$' + order.totalPrice}"></p>
+                                </td>
+                                <td class="total-pr" style="color: black">
+                                    <span></span>Cash</span>
+                                </td>
+                                <td>
+                                    <button class="button-cancel">Cancel</button>
+                                </td>
+                                </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer th:replace="fragments::footer"></footer>
+
+<!-- ALL JS FILES -->
+<div th:replace="fragments::script"></div>
+</body>
+
+</html>

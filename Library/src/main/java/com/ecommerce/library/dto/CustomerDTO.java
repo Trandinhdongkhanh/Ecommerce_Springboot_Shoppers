@@ -1,6 +1,7 @@
 package com.ecommerce.library.dto;
 
 import com.ecommerce.library.entity.Cart;
+import com.ecommerce.library.entity.Order;
 import com.ecommerce.library.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.util.List;
 import java.util.Set;
 
 @Builder
@@ -33,4 +35,5 @@ public class CustomerDTO {
     private String avatar;
     private Set<Role> roles;
     private Cart cart;
+    private List<Order> orders;
 }

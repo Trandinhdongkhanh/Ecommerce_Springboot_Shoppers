@@ -78,6 +78,7 @@ public class Mapper{
                 .avatar(customer.getAvatar())
                 .roles(customer.getRoles())
                 .cart(customer.getCart())
+                .orders(customer.getOrders())
                 .build();
     }
     public static Customer toCustomer(CustomerDTO customerDTO){

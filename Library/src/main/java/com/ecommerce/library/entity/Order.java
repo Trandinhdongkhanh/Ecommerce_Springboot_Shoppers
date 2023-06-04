@@ -22,7 +22,7 @@ public class Order {
     private Long id;
     @Column(nullable = false, name = "oder_date")
     private Date orderDate;
-    @Column(nullable = false, name = "delivery_date")
+    @Column(nullable = true, name = "delivery_date")
     private Date deliveryDate;
     @Column(nullable = false, name = "total_price")
     private Double totalPrice;

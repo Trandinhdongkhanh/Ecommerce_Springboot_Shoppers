@@ -43,7 +43,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="phone">Phone Number *</label>
-                        <p id="phone" th:text="${customer.phoneNumber}">
+                        <p id="phone" th:text="${customer.phoneNo}">
                     </div>
                     <div class="mb-3">
                         <label for="address">Address *</label>
@@ -69,12 +69,12 @@
                             <h3>Shopping cart</h3>
                         </div>
                         <div class="rounded p-2 bg-light">
-                            <div class="media mb-2 border-bottom" th:each="item : ${cart.cartItem}">
+                            <div class="media mb-2 border-bottom" th:each="item : ${cart.cartItems}">
                                 <div class="media-body"><a href="product-detail.html"
                                                            th:text="${item.product.name}"> </a>
                                     <div class="small text-muted">Price: $[[${item.product.costPrice}]] <span
                                             class="mx-2">|</span> Qty: [[${item.quantity}]] <span
-                                            class="mx-2">|</span> Subtotal: $[[${cart.totalPrices}]]
+                                            class="mx-2">|</span> Subtotal: $[[${item.product.costPrice} * ${item.quantity}]]
                                     </div>
                                 </div>
                             </div>
@@ -116,7 +116,8 @@
                         <hr>
                     </div>
                 </div>
-                <div class="col-12 d-flex shopping-box"><a th:href="@{/order}" class="ml-auto btn hvr-hover">Place Order</a></div>
+                <div class="col-12 d-flex shopping-box"><a th:href="@{/api/save-order}" class="ml-auto btn hvr-hover">Place
+                    Order</a></div>
             </div>
         </div>
     </div>
