@@ -1,5 +1,6 @@
 package com.ecommerce.customer.controller;
 
+import com.ecommerce.customer.email.EmailService;
 import com.ecommerce.library.dto.CustomerDTO;
 import com.ecommerce.library.entity.Cart;
 import com.ecommerce.library.entity.Order;
@@ -23,6 +24,8 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private EmailService emailService;
 
 
     @GetMapping("/check-out")
@@ -57,6 +60,7 @@ public class OrderController {
         }
         CustomerDTO customerDTO = customerService.findByUsername(principal.getName());
         Cart cart = customerDTO.getCart();
+        emailService.sendEmail(customerDTO);
         orderService.saveOrder(cart);
         return "redirect:/api/order";
     }

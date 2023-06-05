@@ -21,6 +21,7 @@ public class Mapper{
         }
         return instance;
     }
+
     public AdminDTO toAdminDTO(Admin admin) {
         return AdminDTO.builder()
                 .fullName(admin.getFullName())

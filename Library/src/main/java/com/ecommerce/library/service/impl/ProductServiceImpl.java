@@ -27,13 +27,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<ProductDTO> searchProductByName(String keyword, int pageNo) {
         Pageable pageable = PageRequest.of(pageNo, 5);
-        return productRepo.searchProductByName(keyword, pageable).map(product ->  Mapper.getInstance().toProductDTO(product));
+        return productRepo.searchProductByName(keyword, pageable).map(product -> Mapper.getInstance().toProductDTO(product));
     }
 
     @Override
     public Page<ProductDTO> pageProduct(int pageNo) {
         Pageable pageable = PageRequest.of(pageNo, 5);
-        return productRepo.pageProduct(pageable).map(product ->  Mapper.getInstance().toProductDTO(product));
+        return productRepo.pageProduct(pageable).map(product -> Mapper.getInstance().toProductDTO(product));
     }
 
     @Override
