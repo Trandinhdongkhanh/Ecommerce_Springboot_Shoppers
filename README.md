@@ -4,7 +4,7 @@
 - Admin will run on localhost with port 8019
 - Customer will run on localhost with port 8020
 - The project use MVC + 3-tier architecture
-- The project also applied some design patterns (singleton, builder)
+- The project also applies some design patterns (singleton, builder)
 - ORM Framework used: Hibernate, Spring Data JPA
 - Database used: MySQL
 
